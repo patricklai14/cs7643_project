@@ -13,7 +13,8 @@ def main():
     model = RobertaForMaskedLM.from_pretrained('roberta-base')
 
     #train_data_file = "D:\\Work\\sandbox\\data\\train_citation.jsonl"
-    train_data_file = "D:\\Work\\sandbox\\data\\train_scierc.jsonl"    
+    train_data_file = "D:\\Work\\sandbox\\data\\train_scierc.jsonl"
+    #train_data_file = "D:\\Work\\sandbox\\data\\train_chemprot.jsonl"
     train_data = datasets.load_dataset(
                     "json", data_files=train_data_file)["train"]
 
@@ -30,12 +31,13 @@ def main():
     )
 
     training_args = TrainingArguments(
-        output_dir="./roberta_tapt_scierc",
+        output_dir="./tapt_scierc",
         overwrite_output_dir=True,
         num_train_epochs=100,
         per_device_train_batch_size=2,
         per_device_eval_batch_size=2,
         learning_rate=1e-4,
+        #lr_scheduler_type="constant",        
         adam_epsilon=1e-6,
         adam_beta1=0.9,
         adam_beta2=0.98,
@@ -45,7 +47,7 @@ def main():
         eval_accumulation_steps=20,
         save_steps=5000,
         save_total_limit=2,
-        seed=1
+        seed=2
     )
 
     trainer = Trainer(
@@ -56,7 +58,7 @@ def main():
     )
     trainer.train()
 
-    trainer.save_model("./roberta_tapt_scierc")
+    trainer.save_model("./tapt_scierc")
 
 if __name__ == "__main__":
     main()
