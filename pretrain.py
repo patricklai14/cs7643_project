@@ -7,6 +7,11 @@ from transformers import Trainer, TrainingArguments
 
 import pdb
 
+#guides used:
+#https://jesusleal.io/2020/10/20/RoBERTA-Text-Classification/
+#https://huggingface.co/transformers/training.html
+
+
 def main():
 
     tokenizer = RobertaTokenizer.from_pretrained('roberta-base')
